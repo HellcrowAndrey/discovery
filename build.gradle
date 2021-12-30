@@ -1,0 +1,49 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.0.RELEASE")
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.2.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.github'
+version = '0.0.1'
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "Hoxton.SR4")
+}
+
+bootJar {
+	mainClassName = 'com.github.discovery.DiscoveryApplication'
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

@@ -1,0 +1,36 @@
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  instance:
+    hostname: discovery
+info:
+  app:
+    encoding: UTF-8
+    java:
+      source: 1.11
+      target: 1.11
+management:
+  endpoint:
+    loggers:
+      enabled: true
+      cache:
+        time-to-live: 0ms
+    metrics:
+      enabled: true
+    export:
+      prometheus:
+        enabled: true
+    health:
+      show-details: always
+    prometeus:
+      enabled: true
+  endpoints:
+    jmx:
+      exposure:
+        include: all
+    web:
+      exposure:
+        include: "*"
